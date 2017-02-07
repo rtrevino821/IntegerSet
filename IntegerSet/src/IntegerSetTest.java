@@ -74,62 +74,64 @@ public class IntegerSetTest {
 					arrCounter++; //Jump to next array
 					break;
 				}
-
+				
 				String[] data = line.split(",");
 				Integer[] integers = new Integer[data.length];
 
+				//stores values from data array into integers array as Integers
 				for (int i = 0; i < integers.length; i++) {
 					integers[i] = Integer.parseInt(data[i]);
 				}
 
+				//switch statements checks counter to see where to store integer array from above
 				switch (arrCounter) {
-				case 0:
+				case 0: //if arrCounter is 0, store integer[] into paramArr1
 					paramArr1[row] = integers;
 					break;
-				case 1:
+				case 1: //if arrCounter is 1, store integer[] into paramArr2
 					paramArr2[row] = integers;
 					break;
-				case 2:
+				case 2: //if arrCounter is 2, store integer[] into paramArr3
 					paramArr3[row] = integers;
 					break;
-				case 3:
+				case 3: //if arrCounter is 3, store integer[] into paramArr4
 					paramArr4[row] = integers;
 					break;
-				case 4:
+				case 4: //if arrCounter is 4, store integer[] into paramArr5
 					paramArr5[row] = integers;
 					break;
-				case 5:
+				case 5: //if arrCounter is 5, store integer[] into paramArr6
 					paramArr6[row] = integers;
 					break;
-				case 6:
+				case 6: //if arrCounter is 6, store integer[] into paramArr7
 					paramArr7[row] = integers;
 					break;
-				case 7:
+				case 7: //if arrCounter is 7, store integer[] into paramArr8
 					paramArr8[row] = integers;
 					break;
-				case 8:
+				case 8: //if arrCounter is 8, store integer[] into paramArr9
 					paramArr9[row] = integers;
 					break;
-				case 9:
+				case 9: //if arrCounter is 9, store integer[] into paramArr10
 					paramArr10[row] = integers;
 					break;
 				}
-				row++;
+				row++; //keeps track of what row to store the array in
 			}
 		} while (line != null);
 
 		return Arrays.asList(new Object[][] {
-				// { firstNums, secNums, uniqueFirstNums, uniqueSecondNums,
-				// intersection, union }
 				{ paramArr1 }, { paramArr2 }, { paramArr3 }, { paramArr4 }, { paramArr5 }, { paramArr6 }, { paramArr7 },
 				{ paramArr8 }, { paramArr9 }, { paramArr10 } });
-
 	}
 
 	@After
 	public void tearDown() throws Exception {
 	}
 
+	//test whether an IntegerSet is empty
+	//firstSet is given data
+	//secSet is not given data
 	@Test
 	public void testIsEmpty() {
 		firstSet = new IntegerSet();
@@ -140,12 +142,14 @@ public class IntegerSetTest {
 		assertTrue(secSet.isEmpty());
 	}
 
+	//test insertAll method with null input
 	@Test(expected = NullPointerException.class)
 	public void testAllNull() {
 		firstSet = new IntegerSet();
 		firstSet.insertAll(null);
 	}
 
+	//test creating an IntegerSet from array
 	@Test
 	public void testCreateSetFromArray() {
 		Integer[] arr = { 1, 3, 4, 5, 6 };
@@ -154,6 +158,7 @@ public class IntegerSetTest {
 		assertEquals(firstSet.toArray(), arr);
 	}
 
+	//test creating an
 	@Test(expected = NullPointerException.class)
 	public void testCreateSetFromNull() {
 		firstSet = new IntegerSet(null);
