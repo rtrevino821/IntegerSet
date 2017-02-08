@@ -158,39 +158,38 @@ public class IntegerSetTest {
 		assertEquals(firstSet.toArray(), arr);
 	}
 
-	//test creating an
+	//test creating a set with null parameter
 	@Test(expected = NullPointerException.class)
 	public void testCreateSetFromNull() {
 		firstSet = new IntegerSet(null);
 	}
 
+	//test to check if all integers were inserted into integerSet
 	@Test
 	public void testInsertAll() {
 		firstSet = new IntegerSet();
 		secSet = new IntegerSet();
 
-		firstSet.insertAll(firstNums);
-		secSet.insertAll(uniqueFirstNums);
-		// System.out.println("First Set: " + firstSet.toString());
-		// System.out.println("Second Set: " + secSet.toString());
-		assertEquals(firstSet.toArray(), secSet.toArray());
+		firstSet.insertAll(firstNums); //insert data
+		secSet.insertAll(uniqueFirstNums); //insert all unique data from firstNums
+		
+		//if all data has been inserted successfully, they should equal
+		assertEquals(firstSet.toString(), secSet.toString());
 	}
 
+	//test if an element was deleted
 	@Test
 	public void testDeleteElement() {
-		firstSet = new IntegerSet(firstNums); // initialize empty list
-		Integer[] value = firstSet.toArray();
+		firstSet = new IntegerSet(firstNums); // initialize integerSet
+		Integer[] value = firstSet.toArray(); //store copy of firstSet array data
 
-		// System.out.println(firstSet.toString());
-		// System.out.println(value[0] + " & " + value[1]);
+		firstSet.deleteElement(0); //delete element
 
-		firstSet.deleteElement(0);
-
-		assertFalse(firstSet.exists(value[0]));
-		assertTrue(firstSet.exists(value[1]));
-
+		assertFalse(firstSet.exists(value[0])); //check element was deleted
+		assertTrue(firstSet.exists(value[1])); //check for element that still exist
 	}
 
+	//test to check all data gets deleted from integer set
 	@Test
 	public void testDeleteAll() {
 		firstSet = new IntegerSet(); // initialize empty list
@@ -204,15 +203,17 @@ public class IntegerSetTest {
 		assertFalse(secSet.isEmpty()); // check if all elements where deleted
 	}
 
+	//Test to check the exist method that finds an element within an IntegerSet
 	@Test
 	public void testExists() {
-		firstSet = new IntegerSet(firstNums); // initialize empty list
-		Integer[] value = firstSet.toArray();
+		firstSet = new IntegerSet(firstNums); // initialize IntegerSet
+		Integer[] value = firstSet.toArray(); //store copy of IntegerSet data
 
-		assertTrue(firstSet.exists(value[0]));
-		assertFalse(firstSet.exists(-10));
+		assertTrue(firstSet.exists(value[0])); //check for value that should exist
+		assertFalse(firstSet.exists(-10)); //check for value that should not exist
 	}
 
+	//test the union of two integerSets
 	@Test
 	public void testUnion() {
 		firstSet = new IntegerSet(firstNums); // create IntegerSet
@@ -228,36 +229,41 @@ public class IntegerSetTest {
 																// equal
 	}
 
+	//test the union of two IntegerSets with null input
 	@Test(expected = NullPointerException.class)
-	public void testUnionWithNullInput() {
-		firstSet = new IntegerSet(null);
-		secSet = new IntegerSet(null);
+	public void testUnionWithNullInput() throws NullPointerException {
+		firstSet = new IntegerSet(); //create empty sets
+		secSet = new IntegerSet(); //create empty sets
+		
+		firstSet = null; //set to null
+		secSet = null; //set to null
 
-		firstSet = firstSet.union(firstSet, secSet);
-
-		//assertEquals(firstSet.toArray(), secSet.toArray());
+		firstSet = firstSet.union(firstSet, secSet); //should throw expected exception
 	}
 
+	//test the intersection of two sets
 	@Test
 	public void testIntersection() {
-		firstSet = new IntegerSet(firstNums);
-		secSet = new IntegerSet(secNums);
+		firstSet = new IntegerSet(firstNums); //create set from first line of integers
+		secSet = new IntegerSet(secNums); //create set from second line of integers
 
-		IntegerSet intersectionSet = new IntegerSet(intersection);
+		IntegerSet intersectionSet = new IntegerSet(intersection); //create an IntegerSet from intersection data
 
-		firstSet = firstSet.intersection(firstSet, secSet);
+		firstSet = firstSet.intersection(firstSet, secSet); //intersect data from both sets
 
-		assertEquals(intersectionSet.toArray(), firstSet.toArray());
+		assertEquals(intersectionSet.toArray(), firstSet.toArray()); //true, if intersection was successful
 	}
 
+	//test the intersection of two empty sets
 	@Test
 	public void testIntersectionWithNullInput() {
-		firstSet = new IntegerSet();
-		secSet = new IntegerSet();
+		firstSet = new IntegerSet(); //create an empty set
+		secSet = new IntegerSet(); //create an empty set
 
+		//intesect empty sets, should return empty set
 		firstSet = firstSet.intersection(firstSet, secSet);
-
-		assertEquals(firstSet.toArray(), secSet.toArray());
+		
+		assertTrue(firstSet.isEmpty()); //true if set is empty
 	}
 
 }
